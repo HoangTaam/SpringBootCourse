@@ -3,6 +3,7 @@ package com.devteria.identityservice.controller;
 import com.devteria.identityservice.dto.request.ApiResponse;
 import com.devteria.identityservice.dto.request.UserCreationRequest;
 import com.devteria.identityservice.dto.request.UserUpdateRequest;
+import com.devteria.identityservice.dto.response.UserResponse;
 import com.devteria.identityservice.entity.User;
 import com.devteria.identityservice.service.UserService;
 import jakarta.validation.Valid;
@@ -30,8 +31,10 @@ public class UserController {
     }
 
     @GetMapping("/{userId}")
-    User getUser(@PathVariable("userId") String userId){
-        return userService.getUser(userId);
+    ApiResponse<UserResponse> getUser(@PathVariable("userId") String userId){
+        ApiResponse<UserResponse> userResponseApiResponse = new ApiResponse<>();
+        userResponseApiResponse.setResult(userService.getUser(userId));
+        return userResponseApiResponse;
     }
 
     @PutMapping("/{userId}")
